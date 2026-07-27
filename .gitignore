@@ -1,0 +1,20 @@
+# Ignorar compilados y empaquetados de Maven
+target/
+*.war
+*.jar
+*.ear
+*.class
+
+# Ignorar archivos temporales de sistemas operativos
+.DS_Store
+Thumbs.db
+
+# Ignorar configuraciones locales de IDEs (NetBeans/VS Code)
+nbproject/
+nbactions.xml
+nb-configuration.xml
+.mtj.tmp/
+.project
+.classpath
+.settings/
+.vscode/

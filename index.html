@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda Monjarrez</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        background-color: black;
+        color: white;
+      }
+
+      h1 {
+        color: darkred;
+        display: inline;
+      }
+      
+
+      .icon {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 90px;
+        height: 90px;
+      }
+
+      #search {
+        width: 400px;
+        margin-right: 100px;
+      }
+
+      #searchButton {
+        width: 100px;
+      }
+
+      .filters {
+        margin-top: 20px;
+        font-size: 15px;
+        margin-left: -8px;
+      }
+
+      .filters label {
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .toolbar {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-left: -50px;
+      }
+
+      .separator {
+        border-top: 1px solid white;
+        margin: 10px 0;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: black;
+        padding: 10px 0;
+        border-bottom: 1px solid darkred;
+      }
+
+      .welcome-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 250px;
+        overflow: hidden;
+        margin: 10px auto 20px auto;
+        width: 90%;
+        max-width: 800px;
+        border-radius: 20px;
+      }
+
+      .welcome-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transform: translateY(0);
+        transition: transform 0.1s ease-out;
+        border-radius: 20px;
+      }
+    </style>
+  </head>
+  <body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Campo visible temporalmente de ID de usuario -->
+<div id="usuarioIdVisibleMitienda" 
+     style="
+       font-size:14px; 
+       color:#00ff00; 
+       font-weight:bold; 
+       text-align:center; 
+       display:none; 
+       background-color: rgba(0, 0, 0, 0.1); 
+       padding: 8px; 
+       margin-bottom: 10px; 
+       border-radius: 5px;
+     ">
+  ID de usuario: ---
+</div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Fondo detrás de los modales -->
+    <div
+      id="fondoLogin"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('imagenes/file_00000000688461f79ea7465417af7218~2.png');
+        background-size: cover;
+        background-position: center;
+        z-index: 998;
+      "
+    ></div>
+
+    <!-- Modal de ingreso -->
+   <div id="loginModal" class="modal-overlay" style="display:none">
+
+      <div
+        class="modal-content small-modal"
+        style="
+          background-image: url('imagenes/file_000000000c0861f89b4e4c8909e8da07.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        "
+      >
+        <img
+          src="imagenes/Polish_20250226_191728811.png"
+          alt="Icono"
+          class="modal-icon"
+        />
+        <h2 class="modal-title">Monjarrez</h2>
+        <div class="modal-separator"></div>
+        <p class="modal-text">Ingresar como:</p>
+        <div class="roles">
+          <button class="role-btn vendedor">Vendedor</button>
+          <button class="role-btn comprador">Comprador</button>
+          <button class="role-btn invitado">Invitado</button>
+        </div>
+        <button id="registrarseBtn" class="registrarse">Registrarse</button>
+        <p id="loginMensaje" style="color:red; text-align:center; margin-top:10px;"></p>
+
+      </div>
+    </div>
+
+
+
+
+    <!-- Modal de Vendedor -->
+    <div
+      id="modalVendedor"
+      class="modal-overlay vendedor-modal"
+      style="display: none"
+    >
+      <div
+        class="modal-content small-modal"
+        style="
+          background-image: url('imagenes/file_000000003808622f9a1e8759ef2857cd~2.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        "
+      >
+        <img
+          src="imagenes/Polish_20250226_191728811.png"
+          alt="Icono"
+          class="modal-icon"
+        />
+        <h2 class="modal-title">
+          <span class="highlight-red">Monjarrez</span> - Vendedor
+        </h2>
+
+        <div class="modal-separator"></div>
+
+        <input
+          type="text"
+          placeholder="Cédula"
+          id="cedulaVendedor"
+          class="modal-input"
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          id="passwordVendedor"
+          class="modal-input"
+        />
+        <button id="btnAccederVendedor" class="registrarse acceder-btn">
+          Acceder
+        </button>
+
+        <button class="volver-btn">Atrás</button>
+      </div>
+    </div>
+
+    <!-- Modal de Comprador -->
+    <div
+      id="modalComprador"
+      class="modal-overlay vendedor-modal"
+      style="display: none"
+    >
+      <div
+        class="modal-content small-modal"
+        style="
+          background-image: url('imagenes/file_00000000830461f8b86b77ee9b51a308.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        "
+      >
+        <img
+          src="imagenes/Polish_20250226_191728811.png"
+          alt="Icono"
+          class="modal-icon"
+        />
+        <h2 class="modal-title">
+          <span class="highlight-red">Monjarrez</span> - Comprador
+        </h2>
+        <div class="modal-separator"></div>
+        <input
+          type="email"
+          placeholder="Correo"
+          id="correoComprador"
+          class="modal-input"
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          id="passwordComprador"
+          class="modal-input"
+        />
+        <button id="btnAccederComprador" class="registrarse acceder-btn">
+          Acceder
+        </button>
+
+        <button class="volver-btn">Atrás</button>
+      </div>
+    </div>
+
+<!-- Contenido Vendedor Activo -->
+<div id="contenidoVendedorActivo" style="display:none; color:rgb(0, 0, 0); text-align:center; padding:20px;">
+  .
+</div>
+
+<!-- Contenido Comprador Activo -->
+<div id="contenidoCompradorActivo" style="display:none; color:rgb(5, 0, 0); text-align:center; padding:20px;">
+  .
+</div>
+
+
+
+
+
+    <!-- Contenido que se muestra cuando se entra como Invitado -->
+    <div
+      id="contenidoInvitado"
+      style="
+        display: none;
+        padding: 30px;
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        max-width: 500px;
+        margin: 50px auto;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 12px;
+      "
+    >
+      <h2>¡Bienvenido Invitado!</h2>
+      <p>
+        Has ingresado sin necesidad de registrarte. Disfruta el contenido
+        exclusivo.
+      </p>
+    </div>
+
+
+    <!-- Contenido Comprador Recien Registrado -->
+    <div
+      id="contenidoCompradorRegistrado"
+      style="
+        display: none;
+        padding: 30px;
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        max-width: 500px;
+        margin: 50px auto;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 12px;
+      "
+    >
+      <h2>¡Bienvenido Comprador!</h2>
+      <p>
+        Te has registrado con éxito y ahora puedes acceder a contenido exclusivo
+        para compradores.
+      </p>
+    </div>
+
+
+
+<!-- Modal de registro unificado -->
+<div id="registroModal" class="modal-overlay" style="display:none;">
+  <div class="modal-content small-modal"
+       style="background-image: url('imagenes/file_00000000c5e8620a923f1a4ef72a9d7d.png');
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;">
+    <img src="imagenes/Polish_20250226_191728811.png" alt="Icono" class="modal-icon"/>
+    <h2 class="modal-title">Monjarrez</h2>
+    <div class="modal-separator"></div>
+    <p class="modal-text">Registrarme como:</p>
+
+    <!-- Selección de roles -->
+    <div class="roles" id="rolesContainer">
+      <button class="role-btn vendedor" id="btnVendedor">Vendedor</button>
+      <button class="role-btn comprador" id="btnComprador">Comprador</button>
+      <button class="volver-btn" id="volverRolesBtn">Atrás</button>
+    </div>
+
+    <!-- Campo visible temporalmente de ID de usuario -->
+    <div id="usuarioIdVisible"
+         style="font-size:14px; color:#00ff00; font-weight:bold; margin:5px 0; text-align:center;">
+      ID de usuario: ---
+    </div>
+
+    <!-- ===========================
+         FORMULARIO COMPRADOR
+    ============================ -->
+    <div id="formularioComprador" style="display:none; margin-top:20px; width:100%;">
+      <h3 class="modal-subtitle">Comprador</h3>
+      <form id="registroFormComprador">
+        <input type="text" id="nombreC" name="nombre" placeholder="Nombre" required />
+        <input type="email" id="correoC" name="correo" placeholder="Correo" required />
+        <input type="password" id="contraseñaC" name="contraseña" placeholder="Contraseña" required />
+        <button type="submit" class="registrarse acceder-btn">Aceptar</button>
+        <button type="button" id="btnAtrasComprador" class="volver-btn">Atrás</button>
+      </form>
+    </div>
+
+    <!-- ===========================
+         FORMULARIO UNIFICADO VENDEDOR
+    ============================ -->
+    <form id="registroVendedorUnificado" style="display:none; margin-top:20px; width:100%;">
+
+      <!-- PASO 1: USUARIO -->
+      <div class="paso" id="pasoUsuario">
+        <h3>Vendedor - Usuario</h3>
+        <input type="text" name="nombre" id="nombreV" placeholder="Nombre" required/>
+        <input type="email" name="correo" id="correoV" placeholder="Correo" required/>
+        <input type="password" name="contraseña" id="contraseñaV" placeholder="Contraseña" required/>
+        <button type="button" id="btnSiguienteUsuario">Siguiente</button>
+        <button type="button" id="btnAtrasVendedor" class="volver-btn" style="margin-bottom:10px;">Atrás</button>
+      </div>
+
+      <!-- PASO 2: SOLICITUD -->
+      <div class="paso" id="pasoSolicitud" style="display:none;">
+        <h3>Solicitud de Vendedor</h3>
+        <input type="text" name="provincia" placeholder="Provincia" required/>
+        <input type="text" name="canton" placeholder="Cantón" required/>
+        <textarea name="descripcion" placeholder="Descripción productos" required></textarea>
+        <input type="number" name="precio_promedio" placeholder="Precio promedio" required/>
+        <input type="tel" name="telefono" placeholder="Teléfono" required/>
+        <div class="botones-paso">
+          
+          <button type="button" id="btnSiguienteSolicitud">Siguiente</button>
+          <button type="button" id="btnAtrasSolicitud" class="volver-btn">Atrás</button>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+<!-- PASO 3: SUSCRIPCIÓN -->
+<div class="paso" id="pasoSuscripcion" style="display:none;">
+  <h3>Suscripción</h3>
+
+  <label><input type="radio" name="suscripcion" value="Básica" required/> Básica</label>
+  <label><input type="radio" name="suscripcion" value="Avanzada"/> Avanzada</label>
+
+  <div id="caracteristicasBasica" class="caracteristicas" style="display:none">
+    <p><strong>Ventajas Básica:</strong><br>Acceso a contenido básico, soporte limitado, 10% descuento efectivo.</p>
+  </div>
+  <div id="caracteristicasAvanzada" class="caracteristicas" style="display:none">
+    <p><strong>Ventajas Avanzada:</strong><br>Acceso completo, soporte prioritario, promociones exclusivas.</p>
+  </div>
+
+  <input type="text" name="cedula" id="cedula" placeholder="Cédula" required/>
+
+
+  <select name="metodoPago" id="metodoPago" required>
+    <option value="" disabled selected>Seleccione método</option>
+    <option value="efectivo">Efectivo</option>
+    <option value="tarjeta">Tarjeta</option>
+    <option value="simpe">Simpe</option>
+    <option value="deposito">Depósito</option>
+  </select>
+
+  <div id="contenedorPagoExtra" style="min-height:160px; margin-top:10px;">
+    <div id="tarjetaCampos" class="caracteristicas oculto">
+      <label>Número de Tarjeta:</label>
+      <input type="text" name="numeroTarjeta"/>
+      <label>Código de Seguridad:</label>
+      <input type="text" name="codigoSeguridad"/>
+      <label>Monto:</label>
+      <input type="number" step="0.01" name="montoTarjeta"/>
+    </div>
+
+    <div id="numeroSimpe" class="caracteristicas oculto">
+      <p><strong>Pago por SIMPE:</strong><br/>+506 8888-9999 a nombre de Monjarrez S.A.</p>
+    </div>
+
+    <div id="depositoCampos" class="caracteristicas oculto">
+      <p><strong>Depósito BCR:</strong><br/>Cuenta CR23 0150 1020 1234 5678 90<br/>Monjarrez S.A.</p>
+    </div>
+  </div>
+
+  <div class="botones-paso">
+
+   <!-- Cambiado submit a button para controlar envío -->
+    <button type="button" id="btnFinalizarRegistro">Finalizar Registro</button>
+
+
+    <button type="button" id="btnAtrasSuscripcion" class="volver-btn">Atrás</button>
+    
+  </div>
+</div>
+
+    </form>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+    <!-- Contenido Vendedor Recien Registrado -->
+    <div
+      id="contenidoVendedorRegistrado"
+      style="
+        display: none;
+        padding: 30px;
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        max-width: 500px;
+        margin: 50px auto;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 12px;
+      "
+    >
+      <h2>¡Bienvenido Vendedor!</h2>
+      <p>
+        Te has registrado con éxito y ahora puedes acceder a contenido exclusivo
+        para vendedores.
+      </p>
+    </div>
+
+
+
+
+
+
+
+
+<div class="container">
+ <header>
+  <img src="imagenes/IMG-20250310-WA0001.jpg" alt="Icono" class="icon" />
+  <div class="header-content">
+    <h1 class="store-title">
+      <span class="white-text">Tienda</span>
+      <span class="red-text">Monjarrez</span>
+    </h1>
+
+    <div class="search-group">
+      <input type="text" id="search" placeholder="Buscar productos..." />
+      <button id="searchButton">🔍Buscar</button>
+
+   
+<!-- Botón tres puntitos con menú desplegable -->
+<div class="menu-container">
+  <button class="menu-btn" id="menuBtn"></button> 
+  <div class="menu-content" id="menuContent">
+
+    <!-- Logo en la parte superior -->
+    <div class="menu-logo">
+      <img src="imagenes/Polish_20250226_191728811.png" alt="Logo Tienda" />
+    </div>
+
+    <!-- Toggle con texto -->
+    <div class="menu-item">
+      <span>Tema</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <!-- Botón de ayuda -->
+    <!-- Botón de ayuda -->
+<button class="btn-ayuda" onclick="mostrarAyuda()">
+  Ayuda
+</button>
+
+
+    <!-- Botón de cerrar sesión -->
+    <button onclick="cerrarSesion()">Cerrar sesión</button>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+</header>
+
+
+
+  <div class="toolbar">
+    <!-- Filtros a la izquierda -->
+    <div class="toolbar-group">
+      <button class="filter" data-category="Caballeros">Caballeros</button>
+      <button class="filter" data-category="Damas">Damas</button>
+      <button class="filter" data-category="Niños">Niños</button>
+    </div>
+
+    <!-- Botones destacados al centro -->
+    <div class="toolbar-center">
+      <button class="main" data-main="Novedades">Novedades</button>
+      <button class="main" data-main="Colección">Colección</button>
+      <button class="main" data-main="Descuentos">Descuentos</button>
+      <button class="main" data-main="Recomendados">Recomendados</button>
+    </div>
+
+    <!-- Filtros a la derecha -->
+    <div class="toolbar-group">
+      <button class="filter" data-category="Mi tienda">Mi tienda</button>
+      <button class="filter" data-category="Todo">Todo</button>
+      <button class="filter" data-category="Servicios">Servicios</button>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <!-- Imagen de bienvenida centrada -->
+  <div class="welcome-container">
+    <img
+      src="imagenes/file_00000000213461f79637de8c427ceea4.png"
+      alt="Bienvenido"
+      class="welcome-image"
+    />
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 🔹 Contenedor de Mi Tienda -->
+<div id="miTiendaContainer">
+
+ 
+
+  <!-- 🔹 Botones que ya se muestran bien -->
+  <div class="button-group">
+     <!-- ✅ Aquí debe ir el ID visible -->
+  <div id="usuarioIdVisibleMitienda"
+       style="font-size:14px; color:#00ff00; font-weight:bold; text-align:center; display:none;
+              background-color: rgba(0,0,0,0.1); padding:8px; margin-bottom:10px; border-radius:5px;">
+    ID de usuario: ---
+  </div>
+    <button id="addProductButton">➕Agregar Producto</button>
+    <div class="separator-vertical"></div>
+    <button id="deleteProductButton">🗑️Eliminar Producto</button>
+  </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const miTiendaContainer = document.getElementById("miTiendaContainer");
+  const botonesMiTienda = document.querySelectorAll("[data-category='Mi tienda']");
+  const botonesPrincipales = document.querySelectorAll("[data-main]");
+  const btnAgregar = document.getElementById("btnAgregarProducto");
+  const btnBorrar = document.getElementById("btnBorrarProducto");
+  const welcomeContainer = document.querySelector(".welcome-container");
+  const productGrid = document.getElementById("productGrid");
+
+  // Ocultar contenedor y botones al inicio
+  if (miTiendaContainer) miTiendaContainer.style.display = "none";
+  if (btnAgregar) btnAgregar.style.display = "none";
+  if (btnBorrar) btnBorrar.style.display = "none";
+
+  // Mostrar Mi tienda
+  botonesMiTienda.forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (welcomeContainer) welcomeContainer.style.display = "none";
+      if (productGrid) productGrid.style.display = "none";
+      if (miTiendaContainer) miTiendaContainer.style.display = "block";
+      if (btnAgregar) btnAgregar.style.display = "inline-block";
+      if (btnBorrar) btnBorrar.style.display = "inline-block";
+    });
+  });
+
+  // Volver a vista principal al seleccionar otra categoría
+  botonesPrincipales.forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (miTiendaContainer) miTiendaContainer.style.display = "none";
+      if (btnAgregar) btnAgregar.style.display = "none";
+      if (btnBorrar) btnBorrar.style.display = "none";
+      if (productGrid) productGrid.style.display = "grid";
+      if (welcomeContainer) welcomeContainer.style.display = "block";
+    });
+  });
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const miTiendaForm = document.getElementById("miTiendaForm");
+  const errorMsg = document.getElementById("errorMsgMiTienda");
+  const usuarioIdDiv = document.getElementById("usuarioIdVisibleMitienda");
+  const miTiendaModal = document.getElementById("miTiendaModal");
+  const miTiendaContainer = document.getElementById("miTiendaContainer");
+
+  miTiendaForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const cedula = document.getElementById("miTiendaCedula").value.trim();
+    const password = document.getElementById("miTiendaPassword").value.trim();
+
+    try {
+      const res = await fetch("/api/mi-tienda-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `cedula=${encodeURIComponent(cedula)}&password=${encodeURIComponent(password)}`,
+      });
+
+      const text = await res.text();
+      console.log("Texto del servlet:", text);
+
+      if (res.ok && text.startsWith("OK:")) {
+        const usuarioId = text.split(":")[1].trim();
+        console.log("ID detectado:", usuarioId);
+
+        // Mostrar el ID de usuario
+        usuarioIdDiv.textContent = `ID de usuario: ${usuarioId}`;
+        usuarioIdDiv.style.display = "block";
+        usuarioIdDiv.style.visibility = "visible";
+
+        // Cerrar modal y mostrar acciones
+        miTiendaModal.style.display = "none";
+        document.getElementById("accionesTienda").style.display = "block";
+
+        // Cargar productos del vendedor
+        cargarMisProductos(usuarioId);
+
+      } else {
+        errorMsg.style.display = "block";
+        errorMsg.textContent = text || "Credenciales inválidas";
+      }
+    } catch (err) {
+      console.error("Error al conectar:", err);
+      errorMsg.style.display = "block";
+      errorMsg.textContent = "Error de conexión con el servidor.";
+    }
+  });
+});
+
+async function cargarMisProductos(usuarioId) {
+  try {
+    const res = await fetch(`/MisProductosServlet?usuario_id=${encodeURIComponent(usuarioId)}`);
+    const text = await res.text();
+    console.log("Productos recibidos:", text);
+
+    if (res.ok) {
+      const productos = JSON.parse(text);
+      const contenedor = document.getElementById("miTiendaContainer");
+      if (!contenedor) return;
+      contenedor.innerHTML = ""; // Limpiar antes de mostrar
+
+      productos.forEach(p => {
+        const card = document.createElement("div");
+        card.classList.add("producto-card");
+        card.innerHTML = `
+          <h3>${p.nombre}</h3>
+          <p>${p.descripcion}</p>
+          <p><strong>Precio:</strong> ₡${p.precio}</p>
+          <p><strong>Empresa:</strong> ${p.empresa}</p>
+        `;
+        contenedor.appendChild(card);
+      });
+    } else {
+      console.error("Error al obtener productos:", text);
+    }
+  } catch (err) {
+    console.error("Error al conectar:", err);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div id="productGrid" class="product-grid">
+        <!-- Aquí se cargarán las imágenes de los productos -->
+      </div>
+      <div id="addProductModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Agregar Producto</h2>
+          <form id="addProductForm" action="GuardarProducto" method="post">
+            <label for="name">Nombre:</label>
+            <input
+              type="text"
+              id="name"
+              name="nombre"
+              required
+              placeholder="Nombre del producto (ej. Tenis)"
+            />
+
+            <!-- Se seccionan las categorias -->
+
+            <label for="Categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+              <option value="">Seleccione...</option>
+              <option value="Damas">Damas</option>
+              <option value="Caballeros">Caballeros</option>
+              <option value="Niños">Niños</option>
+              <option value="Servicios">Servicios</option>
+            </select>
+
+            <label for="description">Descripción:</label>
+            <input
+              type="text"
+              id="description"
+              name="descripcion"
+              required
+              placeholder="Descripción del producto (ej. Marca Nike..)"
+            />
+
+
+<label for="imageUrl">URL de la Imagen:</label>
+<input
+  type="text"
+  id="imageUrl"
+  name="imagen"
+  required
+  placeholder="Dirección de la imagen (ej. data:image/AAQj/trk5=..)"
+/>
+
+<!-- Contenedor del botón y preview -->
+<div class="subir-preview">
+  <label for="imagenProducto" class="btn-subir">
+    Agregar desde mi dispositivo
+  </label>
+  <input type="file" id="imagenProducto" name="imagenProducto" accept="image/*">
+  <img id="previewImagen" class="preview-img" alt="Preview" />
+</div>
+
+
+
+
+
+
+
+
+
+            <label for="telefono">Teléfono:</label>
+            <input
+              type="tel"
+              id="telefono"
+              name="telefono"
+              required
+              placeholder="Ej. 8888-8888"
+            />
+
+            <label for="correoProducto">Correo:</label>
+            <input
+              type="email"
+              id="correoProducto"
+              name="correo"
+              required
+              placeholder="Ej. ejemplo@email.com"
+            />
+
+            <label for="provincia">Provincia:</label>
+            <select id="provincia" name="provincia" required>
+              <option value="">Seleccione provincia...</option>
+              <option value="San José">San José</option>
+              <option value="Alajuela">Alajuela</option>
+              <option value="Cartago">Cartago</option>
+              <option value="Heredia">Heredia</option>
+              <option value="Guanacaste">Guanacaste</option>
+              <option value="Puntarenas">Puntarenas</option>
+              <option value="Limón">Limón</option>
+            </select>
+
+            <label for="ciudad">Ciudad/Barrio/Distrito:</label>
+            <input
+              type="text"
+              id="ciudad"
+              name="ciudad"
+              required
+              placeholder="Ej. San Pedro, Hatillo, Liberia..."
+            />
+
+            <label for="price">Precio ₡:</label>
+            <input
+              type="number"
+              id="price"
+              name="precio"
+              required
+              placeholder="Precio del producto (ej. ₡25000..)"
+            />
+
+          
+
+            <label for="empresa">Nombre de Empresa:</label>
+            <input
+              type="text"
+              id="empresa"
+              name="empresa"
+              placeholder="Ej. TechMóvil"
+              title="Nombre de su emprendimiento"
+            />
+
+            <button type="submit">Agregar</button>
+          </form>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+
+    <style>
+      /* Estilos del panel lateral y overlay (puedes mover a tu archivo CSS) */
+      .side-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.28s ease;
+        z-index: 1000;
+      }
+      .side-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .side-modal {
+        position: fixed;
+        top: 0;
+        left: -420px; /* oculto a la izquierda por defecto */
+        width: 400px;
+        max-width: 100%;
+        height: 100%;
+        background: #fff;
+        box-shadow: 2px 0 18px rgba(0, 0, 0, 0.25); /* sombra del lado derecho */
+        overflow-y: auto;
+        transition: left 0.28s ease; /* animación desde la izquierda */
+        z-index: 1001;
+        font-family: Arial, sans-serif;
+        -webkit-overflow-scrolling: touch;
+      }
+      .side-modal.open {
+        left: 0; /* visible */
+      }
+
+      .side-modal .side-modal-content {
+        padding: 20px;
+        position: relative;
+      }
+
+      .close-info {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        border: none;
+        background: transparent;
+        font-size: 26px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      /* Encabezado y texto */
+      #infoEmpresa {
+        margin-top: 6px;
+        margin-bottom: 12px;
+        font-size: 18px;
+      }
+      #infoContacto {
+        font-size: 15px;
+        color: #222;
+      }
+
+      /* Responsive: en móviles usar 100% ancho */
+      @media (max-width: 768px) {
+        .side-modal {
+          width: 100%;
+          left: -100%;
+        }
+        .side-modal.open {
+          left: 0;
+        }
+      }
+    </style>
+
+    <!-- Overlay (fondo oscuro) -->
+    <div id="sideOverlay" class="side-overlay" aria-hidden="true"></div>
+
+    <!-- Panel lateral de más información -->
+    <div id="infoModal" class="side-modal" aria-hidden="true">
+      <div class="side-modal-content" id="infoModalContent">
+        <button class="close-info" aria-label="Cerrar panel">&times;</button>
+        <h2 id="infoEmpresa"></h2>
+        <div id="infoContacto"></div>
+      </div>
+    </div>
+
+    <!-- Parallax script -->
+    <script>
+      window.addEventListener("scroll", function () {
+        const image = document.querySelector(".welcome-image");
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        if (image) {
+          image.style.transform = `translateY(${scrollTop * 0.3}px)`;
+        }
+      });
+    </script>
+
+    <script src="script.js"></script>
+
+    <script>
+      // ---------------------------
+      // Script principal (modo integrado)
+      // ---------------------------
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Activación de botones .filter
+        const filterButtons = document.querySelectorAll(".toolbar .filter");
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            filterButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+          });
+        });
+
+        // Activación de botones .main (botones del centro)
+        const mainButtons = document.querySelectorAll(".toolbar .main");
+        mainButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            mainButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+          });
+        });
+
+        // Botón invitado (si existe)
+        const btnInvitado = document.querySelector(".role-btn.invitado");
+        if (btnInvitado) {
+          const loginModal = document.getElementById("loginModal");
+          const contenidoInvitado =
+            document.getElementById("contenidoInvitado");
+          btnInvitado.addEventListener("click", () => {
+            if (loginModal) loginModal.style.display = "none";
+            if (contenidoInvitado) contenidoInvitado.style.display = "block";
+          });
+        }
+      });
+
+      // ---------------------------
+      // Panel lateral: abrir / cerrar
+      // ---------------------------
+      (function () {
+        const modal = document.getElementById("infoModal");
+        const overlay = document.getElementById("sideOverlay");
+        const closeBtn = modal ? modal.querySelector(".close-info") : null;
+
+        function openPanel() {
+          if (!modal || !overlay) return;
+          modal.classList.add("open");
+          modal.setAttribute("aria-hidden", "false");
+          overlay.classList.add("visible");
+          overlay.setAttribute("aria-hidden", "false");
+          // Opcional no bloquear scroll
+          // document.body.style.overflow = "hidden";
+        }
+
+        function closePanel() {
+          if (!modal || !overlay) return;
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+          overlay.classList.remove("visible");
+          overlay.setAttribute("aria-hidden", "true");
+          // document.body.style.overflow = "";
+        }
+
+        document.addEventListener("click", function (e) {
+          const target = e.target;
+          if (target.classList && target.classList.contains("more-info-btn")) {
+            const empresa = target.dataset.empresa || "Empresa no disponible";
+            const imagen = target.dataset.imagen || "";
+            const nombre = target.dataset.nombre || "";
+            const descripcion = target.dataset.descripcion || "";
+            const provincia = target.dataset.provincia || "";
+            const ciudad = target.dataset.ciudad || "";
+            const telefono = target.dataset.telefono || "—";
+            const correo = target.dataset.correo || "—";
+            const precio = target.dataset.precio || "—";
+
+            // Construir HTML del modal
+            let imagenHtml = imagen
+              ? `<img src="${imagen}" alt="Imagen de empresa" style="width:100%; margin:10px 0; border-radius:8px;">`
+              : "";
+
+            document.getElementById(
+              "infoEmpresa"
+            ).textContent = `🏢 ${empresa}`;
+            document.getElementById("infoModalContent").innerHTML = `
+        <button class="close-info" aria-label="Cerrar">&times;</button>
+        <h2>${empresa}</h2>
+        ${imagenHtml}
+        <p><strong>Nombre:</strong> ${nombre}</p>
+        <p><strong>Descripción:</strong> ${descripcion}</p>
+        <h3>Ubicación</h3>
+        <p>${provincia}, ${ciudad}</p>
+        <h3>Contacto</h3>
+        <p>📞 ${telefono}<br>✉️ ${correo}</p>
+        <p><strong>Precio:</strong> ₡${precio}</p>
+      `;
+
+            // Reasignar listener para cerrar después de crear contenido nuevo
+            const closeBtnNew = document.querySelector(
+              "#infoModalContent .close-info"
+            );
+            if (closeBtnNew) {
+              closeBtnNew.addEventListener("click", closePanel);
+            }
+
+            openPanel();
+          }
+        });
+
+        if (closeBtn) closeBtn.addEventListener("click", closePanel);
+        if (overlay) overlay.addEventListener("click", closePanel);
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closePanel();
+        });
+
+        const content = document.getElementById("infoModalContent");
+        if (content) {
+          content.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+        }
+      })();
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+ <!-- Modal Mi Tienda -->
+<div id="miTiendaModal" class="modal">
+  <div class="modal-content">
+    <span id="cerrarMiTiendaModal" class="close">&times;</span>
+    <h3>Acceso a Mi Tienda</h3>
+    <form id="miTiendaForm">
+      <label for="miTiendaCedula">Cédula</label>
+      <input type="text" id="miTiendaCedula" name="cedula" required />
+
+      <label for="miTiendaPassword">Contraseña</label>
+      <input type="password" id="miTiendaPassword" name="password" required />
+
+      <button type="submit">Ingresar</button>
+    </form>
+    <p id="errorMsgMiTienda" style="color: red; display: none">
+      Credenciales inválidas
+    </p>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Loader -->
+<div id="loader" class="loader-overlay">
+  <div class="loader-box">
+    <div class="spinner">
+      <div class="spinner-inner"></div> <!-- Círculo girando -->
+      <img 
+        src="imagenes/Polish_20250226_191728811.png" 
+        alt="Icono" 
+        class="loader-logo"
+      />
+    </div>
+    <p class="loader-text">Cargando...</p>
+  </div>
+</div>
+
+<div id="miniLoader" class="mini-loader-overlay">
+  <div class="mini-loader-box">
+    <div class="spinner-mini">
+      <div class="spinner-mini-inner"></div>
+      <img src="imagenes/Polish_20250226_191728811.png" alt="Icono" class="mini-loader-logo"/>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const miTiendaForm = document.getElementById("miTiendaForm");
+  const errorMsg = document.getElementById("errorMsgMiTienda");
+  const usuarioIdDiv = document.getElementById("usuarioIdVisibleMitienda");
+  const miTiendaModal = document.getElementById("miTiendaModal");
+
+  miTiendaForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const cedula = document.getElementById("miTiendaCedula").value.trim();
+    const password = document.getElementById("miTiendaPassword").value.trim();
+
+    try {
+      // ✅ Ruta corregida
+      const res = await fetch("/proyecto-web/api/mi-tienda-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `cedula=${encodeURIComponent(cedula)}&password=${encodeURIComponent(password)}`
+      });
+
+      const text = await res.text();
+
+      if (res.ok && text.startsWith("OK:")) {
+        const usuarioId = text.split(":")[1];
+
+        // 🔹 Muestra el ID en pantalla
+        usuarioIdDiv.textContent = `ID de usuario: ${usuarioId}`;
+        usuarioIdDiv.style.display = "block";
+
+        // 🔹 Cierra el modal de login
+        miTiendaModal.style.display = "none";
+
+        // 🔹 Muestra acciones de tienda
+        document.getElementById("accionesTienda").style.display = "block";
+
+        console.log("✅ Login exitoso, ID:", usuarioId);
+      } else {
+        errorMsg.style.display = "block";
+        errorMsg.textContent = text || "Credenciales inválidas";
+      }
+    } catch (err) {
+      console.error("Error al conectar:", err);
+      errorMsg.style.display = "block";
+      errorMsg.textContent = "Error de conexión con el servidor.";
+    }
+  });
+});
+</script>
+
+
+
+
+<!-- CSS -->
+<style>
+/* Fondo translúcido centrado */
+.loader-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255,255,255,0.8); /* fondo blanco translúcido */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loader-overlay.hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+
+/* Caja del loader */
+.loader-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Spinner circular */
+.spinner {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Círculo girando solo con línea visible */
+.spinner-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: 6px solid transparent;   /* todo transparente */
+  border-top: 6px solid #8B0000;   /* solo la línea que gira */
+  border-radius: 50%;
+  animation: spin 1.8s linear infinite;
+  box-sizing: border-box;
+}
+
+/* Logo centrado dentro del spinner, borde minimalista */
+.loader-logo {
+  width: 140px;
+  height: 140px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  border-radius: 4px; /* casi plano */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* sombra mínima */
+  z-index: 2;
+  animation: none; 
+}
+
+/* Texto debajo */
+.loader-text {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #8B0000;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* Animación del círculo */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+/* Mini loader centralizado sobre la pantalla */
+.mini-loader-overlay {
+  position: fixed; /* flota sobre todo */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mini-loader-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mini-loader-overlay.hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Caja del mini loader más grande y transparente */
+.mini-loader-box {
+  width: 220px;          /* más grande */
+  height: 220px;         /* más grande */
+  background: rgba(255,255,255,0.2); /* fondo blanco transparente */
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+  padding: 20px;
+}
+
+/* Spinner circular más grande */
+.spinner-mini {
+  width: 120px;   /* más grande */
+  height: 120px;  /* más grande */
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Spinner circular más grande solo línea visible */
+.spinner-mini-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: 6px solid transparent;     /* todo transparente */
+  border-top: 6px solid #8B0000;     /* línea visible que gira */
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+/* Logo centrado dentro del spinner */
+.mini-loader-logo {
+  width: 70px;   /* más grande */
+  height: 70px;  /* más grande */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  border-radius: 6px;
+  animation: none;
+}
+
+
+</style>
+
+<!-- JS -->
+<script>
+const loader = document.getElementById("loader");
+
+// Mostrar loader con callback opcional
+function mostrarLoader(callback) {
+  loader.classList.remove("hide");
+  loader.classList.add("show");
+
+  setTimeout(() => {
+    loader.classList.remove("show");
+    loader.classList.add("hide");
+    if(callback) callback();
+  }, 2000); // dura 2 segundos
+}
+
+// Botones del login
+document.querySelectorAll("#loginModal .role-btn, #loginModal #registrarseBtn")
+  .forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      mostrarLoader(() => {
+        document.getElementById("loginModal").style.display = "none";
+
+        if (btn.classList.contains("vendedor")) {
+          document.getElementById("modalVendedor").style.display = "block";
+        } else if (btn.classList.contains("comprador")) {
+          document.getElementById("modalComprador").style.display = "block";
+        } else if (btn.classList.contains("invitado")) {
+          document.getElementById("contenidoInvitado").style.display = "block";
+        } else if (btn.id === "registrarseBtn") {
+          document.getElementById("registroModal").style.display = "block";
+        }
+      });
+    });
+  });
+
+// Formulario de suscripción
+const susForm = document.getElementById("suscripcionForm");
+if (susForm) {
+  susForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    mostrarLoader(() => {
+      susForm.submit(); // envía el formulario después de mostrar loader
+    });
+  });
+}
+
+
+
+
+// Mini loader
+const miniLoader = document.getElementById("miniLoader");
+
+function mostrarMiniLoader(callback) {
+  if (!miniLoader) return; // evita errores si no existe el elemento
+  miniLoader.classList.remove("hide");
+  miniLoader.classList.add("show");
+
+  setTimeout(() => {
+    miniLoader.classList.remove("show");
+    miniLoader.classList.add("hide");
+    if (typeof callback === "function") callback();
+  }, 1500);
+}
+
+// Botones específicos (solo los que realmente necesites)
+const botonesMiniLoader = document.querySelectorAll(
+  "#btnAccederVendedor, #btnAccederComprador"
+);
+
+botonesMiniLoader.forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    mostrarMiniLoader(() => {
+      if (btn.closest("form")) {
+        btn.closest("form").submit();
+      }
+    });
+  });
+});
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+window.addEventListener("load", () => {
+  const usuario = sessionStorage.getItem("usuario");
+  if (usuario) {
+    actualizarMiTienda(usuario);
+  } else {
+    actualizarMiTienda("invitado");
+  }
+});
+
+/* --------- CONFIG --------- */
+const DURACION_SESION = 30 * 60 * 1000; // 30 minutos en ms
+
+/* --------- FUNCIONES DE SESIÓN --------- */
+function iniciarSesion(tipo) {
+  const expiracion = Date.now() + DURACION_SESION;
+  localStorage.setItem("sesionUsuario", JSON.stringify({ tipo, expiracion }));
+}
+
+function cerrarSesion() {
+   const confirmar = confirm("¿Estás seguro que deseas cerrar sesión?");
+  if (!confirmar) return; 
+  localStorage.removeItem("sesionUsuario");
+  mostrarLogin("Tiempo de sesión agotado");
+}
+
+function comprobarSesion() {
+  const sesion = JSON.parse(localStorage.getItem("sesionUsuario"));
+  if (!sesion) return null;
+  if (Date.now() > sesion.expiracion) {
+    cerrarSesion();
+    return null;
+  }
+  return sesion.tipo; // "vendedor" o "comprador"
+}
+
+function actualizarActividad() {
+  const sesion = JSON.parse(localStorage.getItem("sesionUsuario"));
+  if (!sesion) return;
+  sesion.expiracion = Date.now() + DURACION_SESION;
+  localStorage.setItem("sesionUsuario", JSON.stringify(sesion));
+}
+
+/* --------- FUNCIONES DE LOGIN Y CONTENIDO --------- */
+function mostrarLogin(mensaje) {
+  document.getElementById("loginModal").style.display = "flex";
+  if(mensaje) document.getElementById("loginMensaje").innerText = mensaje;
+
+  // Ocultar todos los contenidos
+  document.getElementById("contenidoVendedorRegistrado").style.display = "none";
+  document.getElementById("contenidoVendedorActivo").style.display = "none";
+  document.getElementById("contenidoCompradorRegistrado").style.display = "none";
+  document.getElementById("contenidoCompradorActivo").style.display = "none";
+}
+
+function mostrarContenido(tipo, registrado = true) {
+  document.getElementById("loginModal").style.display = "none";
+
+  // Ocultar todo
+  document.getElementById("contenidoVendedorRegistrado").style.display = "none";
+  document.getElementById("contenidoVendedorActivo").style.display = "none";
+  document.getElementById("contenidoCompradorRegistrado").style.display = "none";
+  document.getElementById("contenidoCompradorActivo").style.display = "none";
+
+  if(tipo === "vendedor") {
+    if(registrado) document.getElementById("contenidoVendedorRegistrado").style.display = "block";
+    else document.getElementById("contenidoVendedorActivo").style.display = "block";
+  }
+
+  if(tipo === "comprador") {
+    if(registrado) document.getElementById("contenidoCompradorRegistrado").style.display = "block";
+    else document.getElementById("contenidoCompradorActivo").style.display = "block";
+  }
+}
+
+
+
+
+/* --------- INICIALIZACIÓN --------- */
+window.addEventListener("load", () => {
+  const tipo = comprobarSesion();
+  if (tipo) {
+    mostrarContenido(tipo, false); // Sesión activa → mostrar contenido
+    actualizarMiTienda(tipo);      // 🔹 Ajustar "Mi tienda" según tipo
+  } else {
+    mostrarLogin();                // No hay sesión → mostrar login
+    actualizarMiTienda("invitado"); // 🔹 Bloquear por defecto
+  }
+});
+
+
+
+
+
+
+
+
+/* --------- ACTIVIDAD DEL USUARIO --------- */
+["click","mousemove","keydown","scroll"].forEach(evt => {
+  document.addEventListener(evt, actualizarActividad);
+});
+
+/* --------- BOTONES DE LOGIN --------- */
+document.querySelectorAll("#loginModal .role-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const tipo = btn.classList.contains("vendedor") ? "vendedor" :
+                 btn.classList.contains("comprador") ? "comprador" :
+                 "invitado";
+
+    if(tipo !== "invitado") iniciarSesion(tipo); // Guardar sesión
+    mostrarContenido(tipo, true); // Primera vez → contenido registrado
+  });
+});
+
+/* Botón registrarse */
+document.getElementById("registrarseBtn").addEventListener("click", () => {
+  document.getElementById("registroModal").style.display = "flex";
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+const cedulaInput = document.getElementById("miTiendaCedula");
+const passwordInput = document.getElementById("miTiendaPassword");
+
+// Tiempo de expiración en milisegundos (30 min)
+const EXPIRATION_TIME = 30 * 60 * 1000;
+
+// Función para guardar con timestamp
+function guardarLogin() {
+  const now = new Date().getTime();
+  localStorage.setItem("miTiendaCedula", cedulaInput.value);
+  localStorage.setItem("miTiendaPassword", passwordInput.value);
+  localStorage.setItem("miTiendaLoginTime", now);
+}
+
+// Función para cargar datos si no expiró
+function cargarLogin() {
+  const savedTime = localStorage.getItem("miTiendaLoginTime");
+  if (savedTime) {
+    const now = new Date().getTime();
+    if (now - savedTime < EXPIRATION_TIME) {
+      cedulaInput.value = localStorage.getItem("miTiendaCedula") || "";
+      passwordInput.value = localStorage.getItem("miTiendaPassword") || "";
+    } else {
+      // Borrar si expiró
+      localStorage.removeItem("miTiendaCedula");
+      localStorage.removeItem("miTiendaPassword");
+      localStorage.removeItem("miTiendaLoginTime");
+    }
+  }
+}
+
+// Guardar cada vez que el usuario escribe
+cedulaInput.addEventListener("input", guardarLogin);
+passwordInput.addEventListener("input", guardarLogin);
+
+// Cargar al iniciar la página
+window.addEventListener("DOMContentLoaded", cargarLogin);
+
+// Limpiar si login fue exitoso
+document.getElementById("miTiendaForm").addEventListener("submit", () => {
+  // Después de verificar credenciales correctamente:
+  // localStorage.removeItem("miTiendaCedula");
+  // localStorage.removeItem("miTiendaPassword");
+  // localStorage.removeItem("miTiendaLoginTime");
+});
+</script>
+
+
+
+
+
+  </body>
+</html>
